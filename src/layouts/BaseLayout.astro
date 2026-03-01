@@ -1,0 +1,24 @@
+---
+export interface Props { title: string; description?: string; image?: string; }
+const { title, description = '', image } = Astro.props;
+const site = 'Wireframe Reviews';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title === site ? site : `${title} | ${site}`}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={Astro.url} />
+  <meta property="og:title" content={title} /><meta property="og:description" content={description} />
+  {image && <meta property="og:image" content={image} />}
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="/styles/global.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <nav class="topbar"><a href="/" class="brand">{site}</a><div class="links"><a href="/">Home</a><a href="/blog">Feed</a></div></nav>
+  <main><slot /></main>
+  <footer class="ft"><p>&copy; {new Date().getFullYear()} {site}</p></footer>
+</body>
+</html>
