@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const allPosts = await Astro.glob('./blog/*.md');
+const posts = allPosts.sort((a,b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
+---
+<BaseLayout title="Wireframe Reviews" description="Structured entertainment analysis">
+  <section class="cyber-hero"><h1>Wireframe Reviews</h1><p>Structured entertainment analysis</p></section>
+  <section class="cyber-grid">
+    {posts.slice(0,12).map(post => (
+      <a href={post.url} class="cyber-tile">
+        {post.frontmatter.image && <img src={post.frontmatter.image} alt={post.frontmatter.title} loading="lazy" />}
+        <div class="tile-info">
+          <span class="tile-date">{new Date(post.frontmatter.date).toLocaleDateString('en-US',{month:'short',day:'numeric'})}</span>
+          <h3>{post.frontmatter.title}</h3>
+        </div>
+      </a>
+    ))}
+  </section>
+</BaseLayout>
